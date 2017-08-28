@@ -1,0 +1,368 @@
+<html>
+
+<head>
+  <title>
+    HTML Block Element Builder
+  </title>
+  <script src="./js/angular.min.js"></script>
+  <script src="./js/angular-resource.min.js"></script>
+  <script src="./js/angular-aria.min.js"></script>
+  <script src="./js/angular-animate.min.js"></script>
+  <script src="./js/angular-messages.min.js"></script>
+
+  <script src="./js/angular-material.min.js"></script>
+
+  <script src="./js/MainController.js"></script>
+  <script src="./js/color-picker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./css/color-picker.min.css" />
+  <link rel="stylesheet" href="./css/angular-material.min.css" />
+  <style>
+  #app {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+  }
+
+  .options-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .options-column {
+    flex: 1;
+    flex-direction: column;
+    border: 1px solid;
+    padding: 0 1em 0 1em;
+    overflow-y: scroll;
+    height: 100%;
+  }
+
+  .main-column {
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex: 3;
+    flex-direction: column;
+    border: 1px solid;
+    padding: 0 1em 0 1em;
+    overflow-y: scroll;
+  }
+
+  .options-column>div {
+    margin: .3em;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  md-slider-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #result {
+    display: flex;
+    flex: 1;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #code {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-self: center;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 0 2em 0 2em;
+  }
+
+  #code code {
+    padding: 1em;
+    color: #ee3e3e;
+    background-color: #dadada;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div id="app" ng-app="App">
+    <div ng-controller="MainController">
+      <div class="options-row">
+        <div class="options-column">
+          <h2>HTML Block Element Builder</h2>
+          <hr/>
+          <h3>Basics</h3>
+
+          <div>
+            <div>Base element</div>
+            <div>
+              <select ng-model="element.tagName">
+                <option value="button">Button</option>
+                <option value="div">Div</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <div>Background color</div>
+            <div>
+              <input color-picker color-picker-position="auto" color-picker-model="element.style.backgroundColor" />
+            </div>
+          </div>
+
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Width</span>
+              <md-slider class="md-primary" flex min="0" max="1000" ng-model="element.style.width" aria-label="width" id="width-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.width"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Height</span>
+              <md-slider class="md-primary" flex min="0" max="1000" ng-model="element.style.height" aria-label="height" id="height-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.height"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Font size</span>
+              <md-slider class="md-primary" flex min="0" max="1000" ng-model="element.style.fontSize" aria-label="fontSize" id="fontsize-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.fontSize"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <div>Text</div>
+            <input type="text" ng-model="element.html">
+          </div>
+          
+          <div>
+            <div>Color</div>
+            <div>
+              <input color-picker color-picker-position="auto" color-picker-model="element.style.color" />
+            </div>
+          </div>
+
+          <h3>Padding (px)</h3>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Top</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.paddingTop" aria-label="paddingTop" id="padding-top-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.paddingTop"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Right</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.paddingRight" aria-label="paddingRight" id="padding-right-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.paddingRight"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Bottom</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.paddingBottom" aria-label="paddingBottom" id="padding-bottom-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.paddingBottom"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Left</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.paddingLeft" aria-label="paddingLeft" id="padding-left-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.paddingLeft"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <h3>Margin (px)</h3>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Top</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.marginTop" aria-label="marginTop" id="margin-top-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.marginTop"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Right</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.marginRight" aria-label="marginRight" id="margin-right-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.marginRight"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Bottom</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.marginBottom" aria-label="marginBottom" id="margin-bottom-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.marginBottom"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Left</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.marginLeft" aria-label="marginLeft" id="margin-left-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.marginLeft"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+
+          <h3>Borders (px)</h3>
+          <div>
+            <div>Color</div>
+            <input color-picker color-picker-position="auto" color-picker-model="element.style.borderColor" />
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Top</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.borderTop" aria-label="borderTop" id="border-top-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.borderTop"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Right</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.borderRight" aria-label="borderRight" id="border-right-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.borderRight"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Bottom</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.borderBottom" aria-label="borderBottom" id="border-bottom-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.borderBottom"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Left</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.borderLeft" aria-label="borderLeft" id="border-left-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.borderLeft"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Radius</span>
+              <md-slider class="md-primary" flex min="0" max="1000" ng-model="element.style.borderRadius" aria-label="borderRadius" id="border-radius-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.borderRadius"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+
+          <h3>Shadow (px)</h3>
+          <div>
+            <div>Color</div>
+            <input color-picker color-picker-position="auto" color-picker-model="element.style.shadowColor" />
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>H</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.shadowHorizontal" aria-label="shadowHorizontal" id="shadow-horizontal-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.shadowHorizontal"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>V</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.shadowVertical" aria-label="shadowVertical" id="shadow-vertical-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.shadowVertical"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Blur</span>
+              <md-slider class="md-primary" flex min="0" max="1000" ng-model="element.style.shadowBlur" aria-label="shadowBlur" id="shadow-blur-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.shadowBlur"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+          <div>
+            <md-slider-container flex layout layout-align="space-between center">
+              <span flex>Spread</span>
+              <md-slider class="md-primary" flex min="-1000" max="1000" ng-model="element.style.shadowSpread" aria-label="shadowSpread" id="shadow-spread-slider">
+              </md-slider>
+              <md-input-container flex>
+                <span ng-bind="element.style.shadowSpread"></span>
+              </md-input-container>
+            </md-slider-container>
+          </div>
+        </div>
+
+
+        <div class="main-column">
+          <div id="result" ng-bind-html="elementHtml()"></div>
+
+          <div class="options-row">
+            <div id="code">
+              The code:
+              <code>{{ elementString() }}</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
